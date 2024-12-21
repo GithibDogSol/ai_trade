@@ -1,10 +1,13 @@
-const axios = require('axios');
+const Anthropic = require('@anthropic-ai/sdk');
 
 class AIAnalyzer {
     constructor(config) {
         this.config = config;
         this.modelCache = new Map();
         this.lastAnalysis = new Map();
+        this.anthropic = new Anthropic({
+            apiKey: config.apiKey || process.env.ANTHROPIC_API_KEY
+        });
     }
 
     async analyzePattern(pattern, context = {}) {
@@ -19,7 +22,7 @@ class AIAnalyzer {
     }
 
     constructPrompt(pattern, context) {
-        return `As a trading analysis AI, analyze the following Solana wallet trading pattern:
+        return `\n\nHuman: As a trading analysis AI, analyze the following Solana wallet trading pattern:
 
 Trading Pattern Analysis Request:
 - Buy Frequency: ${JSON.stringify(pattern.buyFrequency)}
@@ -39,24 +42,27 @@ Please analyze and provide:
 3. Token Preference Analysis
 4. Success Probability
 5. Recommended Actions
-6. Risk Mitigation Suggestions`;
+6. Risk Mitigation Suggestions
+
+Format your response in a structured way with clear section headers.`;
     }
 
     async queryModel(prompt) {
         try {
-            const response = await axios.post(this.config.modelEndpoint, {
-                prompt,
+            const message = await this.anthropic.messages.create({
+                model: "claude-3-opus-20240229",
                 max_tokens: 1000,
                 temperature: 0.7,
-                headers: {
-                    'Authorization': `Bearer ${this.config.apiKey}`,
-                    'Content-Type': 'application/json'
-                }
+                system: "You are an expert trading analyst specializing in cryptocurrency markets, particularly Solana. You analyze trading patterns and provide detailed, structured insights.",
+                messages: [{
+                    role: "user",
+                    content: prompt
+                }]
             });
 
-            return response.data.choices[0].text;
+            return message.content[0].text;
         } catch (error) {
-            console.error('Error querying AI model:', error);
+            console.error('Error querying Claude:', error);
             throw error;
         }
     }
