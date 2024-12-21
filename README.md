@@ -1,10 +1,10 @@
 # Algolytics
 
-Algolytics is an AI-powered Solana trading analytics platform that leverages Claude 3 Opus (Anthropic's latest LLM) to analyze trading patterns and provide intelligent trading insights.
+Algolytics is an AI-powered Solana trading analytics platform that leverages Sonnet 3 Opus (Anthropic's latest LLM) to analyze trading patterns and provide intelligent trading insights.
 
 ## Features
 
-- AI-powered trading pattern analysis using Claude 3.5 Opus
+- AI-powered trading pattern analysis using Sonnet 3.5 Opus
 - Real-time market data monitoring and analysis
 - Historical trading pattern recognition
 - Risk assessment and management
@@ -19,7 +19,7 @@ Algolytics is an AI-powered Solana trading analytics platform that leverages Cla
 - Node.js >= 16.0.0
 - npm or yarn
 - Solana CLI tools (optional)
-- Anthropic API key for Claude 3.5 integration
+- Anthropic API key for Sonnet 3.5 integration
 
 ## Installation
 
@@ -49,7 +49,7 @@ The application can be configured through the `config.json` file:
     "TOKEN": "",
     "BUY_AMOUNT": 1,
     "AI_CONFIG": {
-        "modelEndpoint": "claude-3-opus-20240229",
+        "modelEndpoint": "Sonnet-3-opus-20240229",
         "minConfidence": 0.75,
         "historicalDataDays": 30,
         "riskTolerance": "moderate",
@@ -86,7 +86,7 @@ npm run dev
 2. The application will:
    - Initialize connection to Solana network
    - Load historical trading data
-   - Start AI analysis system using Claude 3.5
+   - Start AI analysis system using Sonnet 3.5
    - Begin monitoring wallet activities
    - Generate trading recommendations
 
@@ -95,7 +95,7 @@ npm run dev
 The platform consists of several key components:
 
 1. **AI Analyzer (`src/ai/analyzer.js`)**
-   - Integrates with Claude 3.5 Opus for advanced pattern analysis
+   - Integrates with Sonnet 3.5 Opus for advanced pattern analysis
    - Processes trading patterns and market context
    - Generates structured insights and recommendations
    - Validates predictions against historical data
@@ -124,7 +124,7 @@ The platform consists of several key components:
 
 ## AI Integration
 
-The platform uses Claude 3.5 Opus for advanced trading analysis:
+The platform uses Sonnet 3.5 Opus for advanced trading analysis:
 
 ```javascript
 const analyzer = new AIAnalyzer({
@@ -148,7 +148,7 @@ The AI system provides:
 The platform integrates with several external APIs:
 
 - Solana Web3.js for blockchain interaction
-- Anthropic's Claude 3.5 for AI analysis
+- Anthropic's Sonnet 3.5 for AI analysis
 - Various DEX APIs for liquidity data
 
 ## Contributing
